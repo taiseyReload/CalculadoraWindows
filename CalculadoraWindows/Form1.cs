@@ -14,6 +14,7 @@ namespace CalculadoraWindows
     {
         int numero1;
         string ultimoOp;
+        bool apertouOp = false;
         public Form1()
         {
             InitializeComponent();
@@ -24,43 +25,63 @@ namespace CalculadoraWindows
             // Limpar todas as informações:
             txbTela.Clear();
             txbAux.Clear();
+            numero1 = 0;
         }
         private void Numero_Click(object sender, EventArgs e)
         {
             // Obter o botão que está chamando o evento:
             var botao = (Button)sender;
-            txbTela.Text += botao.Text;
+            txbTela.Text += botao.Text; 
         }
         private void Operador_Click(object sender, EventArgs e)
         {
             // Obter o botão que está chamando o evento:
             var botao = (Button)sender;
-            if (txbTela.Text != "")
+            // Impedir que o usuário comece a conta com um operador:
+            if (txbTela.Text != "" && apertouOp == false)
             {
                 numero1 = int.Parse(txbTela.Text);
                 txbTela.Clear();
                 txbAux.Text = numero1.ToString() + botao.Text;
                 ultimoOp = botao.Text;
+                apertouOp = true;
+            }
+            else if(txbTela.Text != "")
+            {
+                btnIgual.PerformClick();
+                numero1 = int.Parse(txbTela.Text);
+                txbAux.Text = numero1.ToString() + botao.Text;
+                txbTela.Clear();
             }
         }
         private void btnIgual_Click(object sender, EventArgs e)
         {
+            apertouOp = false;
             // Definir a função dos operadores:
             switch (ultimoOp)
             {
                 case "+":
                     txbAux.Clear();
                     txbTela.Text = (numero1 + int.Parse(txbTela.Text)).ToString();
+                    // Fazer com que seja possível que o usuário realize cálculos
+                    // com mais de dois números.
+                    numero1 = 0;
                     break;
 
                 case "-":
                     txbAux.Clear();
                     txbTela.Text = (numero1 - int.Parse(txbTela.Text)).ToString();
+                    // Fazer com que seja possível que o usuário realize cálculos
+                    // com mais de dois números.
+                    numero1 = 0;
                     break;
 
                 case "X":
                     txbAux.Clear();
                     txbTela.Text = (numero1 * int.Parse(txbTela.Text)).ToString();
+                    // Fazer com que seja possível que o usuário realize cálculos
+                    // com mais de dois números.
+                    numero1 = 0;
                     break;
 
                 case "÷":
@@ -70,11 +91,15 @@ namespace CalculadoraWindows
                         MessageBox.Show("Impossível dividir por 0!");
                         txbTela.Clear();
                         txbAux.Clear();
+                        numero1 = 0;
                     }
                     else
                     {
                         txbAux.Clear();
                         txbTela.Text = (numero1 / int.Parse(txbTela.Text)).ToString();
+                        // Fazer com que seja possível que o usuário realize cálculos
+                        // com mais de dois números.
+                        numero1 = 0;
                     }
                     break;
             }
