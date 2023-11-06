@@ -65,7 +65,6 @@ namespace CalculadoraWindows
             if (txbTela.Text != "")
             {
                 // Definir a função dos operadores:
-
                 switch (ultimoOp)
                 {
                     case "+":
@@ -73,24 +72,16 @@ namespace CalculadoraWindows
                         txbAux.Clear();
                         txbTela.Text = (numero1 + int.Parse(txbTela.Text)).ToString();
                         // Fazer com que seja possível que o usuário realize cálculos
-                        // com mais de dois números.
+                        // com mais de dois números:
                         numero1 = 0;
                         break;
 
                     case "-":
-                        if (txbTela.Text == "")
-                        {
-                            txbTela.Text = (-+numero1).ToString();
-                        }
-                        else
-                        {
-
-                            apertouOp = true;
-                            txbAux.Clear();
-                            txbTela.Text = (numero1 - int.Parse(txbTela.Text)).ToString();
-                            // Fazer com que seja possível que o usuário realize cálculos
-                            // com mais de dois números.
-                        }
+                        apertouOp = true;
+                        txbAux.Clear();
+                        txbTela.Text = (numero1 - int.Parse(txbTela.Text)).ToString();
+                        // Fazer com que seja possível que o usuário realize cálculos
+                        // com mais de dois números:
                         numero1 = 0;
                         break;
 
@@ -99,7 +90,7 @@ namespace CalculadoraWindows
                         txbAux.Clear();
                         txbTela.Text = (numero1 * int.Parse(txbTela.Text)).ToString();
                         // Fazer com que seja possível que o usuário realize cálculos
-                        // com mais de dois números.
+                        // com mais de dois números:
                         numero1 = 0;
                         break;
 
@@ -112,13 +103,14 @@ namespace CalculadoraWindows
                             txbTela.Clear();
                             txbAux.Clear();
                             numero1 = 0;
+                            apertouOp = false;
                         }
                         else
                         {
                             txbAux.Clear();
                             txbTela.Text = (numero1 / int.Parse(txbTela.Text)).ToString();
                             // Fazer com que seja possível que o usuário realize cálculos
-                            // com mais de dois números.
+                            // com mais de dois números:
                             numero1 = 0;
                         }
                         break;
